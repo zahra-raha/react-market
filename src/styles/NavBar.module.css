@@ -1,0 +1,15 @@
+.NavBar span{
+    color: #ffc451;
+}
+.NavBar {
+    background-color: #ffffff;
+    border: 1px solid #dadadf;
+}
+  
+.NavLink {
+padding: 5px;
+}
+  
+.Active{
+color: #ffc451 ;
+}
