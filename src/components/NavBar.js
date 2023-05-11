@@ -1,11 +1,10 @@
 import { Container,Navbar, NavDropdown, Nav } from 'react-bootstrap';
-import React, { useContext } from 'react'
 import css from '../styles/NavBar.module.css'
 import { NavLink } from 'react-router-dom';
-import { CurrentUserContext } from '../App';
+import { useCurrentUser } from '../contexts/CurrentUserContext';
 
 const NavBar = () => {
-    const currentUser = useContext(CurrentUserContext)
+    const currentUser = useCurrentUser()
     const logedInLinks = <> {currentUser?.username}
     <NavLink to='/' className={css.NavLink} activeClassName={css.Active} >Dashboard</NavLink>
     </>
