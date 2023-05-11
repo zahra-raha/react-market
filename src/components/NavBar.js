@@ -1,12 +1,37 @@
 import { Container,Navbar, NavDropdown, Nav } from 'react-bootstrap';
 import css from '../styles/NavBar.module.css'
 import { NavLink } from 'react-router-dom';
-import { useCurrentUser } from '../contexts/CurrentUserContext';
+import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
+import Avatar from './Avatar';
+import axios from "axios";
 
 const NavBar = () => {
     const currentUser = useCurrentUser()
-    const logedInLinks = <> {currentUser?.username}
-    <NavLink to='/' className={css.NavLink} activeClassName={css.Active} >Dashboard</NavLink>
+    const setCurrentUser = useSetCurrentUser()
+
+    const handleSignOut = async () => {
+        try{
+            await axios.post('/dj-rest-auth/logout/');
+            setCurrentUser(null);
+        } catch(err) {
+            console.log(err);
+        }
+    }
+
+    const addPostLink = (
+        <NavLink to='/posts/create' className={css.NavLink} activeClassName={css.Active} >Add Post</NavLink>
+    )
+    const logedInLinks = <> 
+        <NavLink to='/feed' className={css.NavLink} activeClassName={css.Active} >Feed</NavLink>
+        <NavLink to='/liked' className={css.NavLink} activeClassName={css.Active} >Liked</NavLink>
+        <NavLink to='/' className={css.NavLink} onClick={handleSignOut} >Logout</NavLink>
+
+        <NavLink 
+            to={`/profiles/${currentUser?.profile_id}`} 
+            className={css.NavLink} 
+        >
+            <Avatar src={currentUser?.profile_image} height={40} text='Profile'/>
+        </NavLink>
     </>
     const logedOutLinks = <>
         <NavLink to='/register' className={css.NavLink} activeClassName={css.Active} >Register</NavLink>
@@ -20,9 +45,10 @@ const NavBar = () => {
                     <h2 >Market <span>Place</span></h2>
                 </Navbar.Brand>
             </NavLink>
+            {currentUser && addPostLink}
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
-            <Navbar.Collapse className="justify-content-end">
-                <Nav className="mr-auto">
+            <Navbar.Collapse id="basic-navbar-nav" >
+                <Nav className="ml-auto text-left">
                     <NavLink exact to='/' className={css.NavLink} activeClassName={css.Active}>Home</NavLink>
                     {currentUser ? logedInLinks : logedOutLinks}
                 </Nav>
