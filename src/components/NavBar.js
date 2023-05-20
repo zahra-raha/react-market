@@ -1,4 +1,4 @@
-import { Container,Navbar, NavDropdown, Nav } from 'react-bootstrap';
+import { Container,Navbar, Nav } from 'react-bootstrap';
 import css from '../styles/NavBar.module.css'
 import { NavLink } from 'react-router-dom';
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
