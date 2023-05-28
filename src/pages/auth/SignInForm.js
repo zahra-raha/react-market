@@ -41,10 +41,12 @@ function SignInForm() {
         event.preventDefault();
         try {
           const {data} = await axios.post("/dj-rest-auth/login/ ", signInData);
+          console.log("form submitted data:", data);
           setCurrentUser(data.user)
           history.push("/");
         } catch (err) {
           setErrors(err.response?.data);
+          console.log()
         }
       };
 
