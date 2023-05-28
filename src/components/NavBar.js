@@ -43,7 +43,7 @@ const NavBar = () => {
     <Navbar expanded={expanded} bg="light" expand="lg" fixed='top'className={css.NavBar}>
         <Container>
             <NavLink to='/'>
-                <Navbar.Brand href="#home">
+                <Navbar.Brand >
                     <h2 >Market <span>Place</span></h2>
                 </Navbar.Brand>
             </NavLink>
